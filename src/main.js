@@ -1,11 +1,15 @@
 var G = {
 	gamestate : 0,
+	score: 0,
+	bombs: 0,
+	level: 0,
 	cursorPos : [3,4],
 	cursorIsActive : true,
 	board: [],
 	currentPiece: [4,4],
 	nextPiece: [1,1],
 	nextShift: 0,
+	shiftDelay: 0,
 	colors : [
 		makecol(80,80,80,255),
 		makecol(240,0,0,255),
@@ -44,8 +48,8 @@ function main() {
 					break;
 				default:
 					G.gamestate = 0;
-			}
 
+			}
 		},BPS_TO_TIMER(60));
 	});
 }
