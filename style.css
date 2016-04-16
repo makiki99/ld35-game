@@ -1,0 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Orbitron:700);
+
+body {
+	font-family:'Orbitron', sans-serif;
+}
+
+canvas {
+	border:1px solid #888;
+	box-shadow:#888 0px 0px 32px;
+	margin: 10px auto;
+	display:block;
+}
+
+#debug {
+	text-align:left;
+	width:620px;
+	height:460px;
+	border:1px solid #888;
+	font: 16px monospace;
+	overflow: auto;
+	background-color:#f8fcff;
+	box-shadow:#888 0px 0px 32px;
+	margin: 10px auto;
+	padding:10px;
+	border-radius:12px;
+}
+
+footer {
+	text-align:center;
+}
