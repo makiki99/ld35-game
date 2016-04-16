@@ -26,47 +26,78 @@ function shapeshift(shiftID) {
 			break;
 		case 5:
 			// rotate left
-			G.board = [
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-			];
-			for (var x = 0; x < preshiftBoard.length; x++) {
-				for (var y = 0; y < preshiftBoard[x].length; y++) {
-					G.board[x][y] = preshiftBoard[7-y][x];
+			(function() {
+				G.board = [
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+				];
+				for (var x = 0; x < preshiftBoard.length; x++) {
+					for (var y = 0; y < preshiftBoard[x].length; y++) {
+						G.board[x][y] = preshiftBoard[7-y][x];
+					}
 				}
-			}
+			}());
 			break;
 		case 6:
-			// rotate left
-			G.board = [
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-				[0,0,0,0,0,0,0,0],
-			];
-			for (var x = 0; x < preshiftBoard.length; x++) {
-				for (var y = 0; y < preshiftBoard[x].length; y++) {
-					G.board[x][y] = preshiftBoard[y][7-x];
+			// rotate right
+			(function() {
+				G.board = [
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+					[0,0,0,0,0,0,0,0],
+				];
+				for (var x = 0; x < preshiftBoard.length; x++) {
+					for (var y = 0; y < preshiftBoard[x].length; y++) {
+						G.board[x][y] = preshiftBoard[y][7-x];
+					}
 				}
-			}
+			}());
 			break;
 		case 7:
 			// shift colors
 			(function() {
-
+				for (var x = 0; x < preshiftBoard.length; x++) {
+					for (var y = 0; y < preshiftBoard[x].length; y++) {
+						if (G.board[x][y] !== 0) {
+							G.board[x][y]++;
+							if (G.board[x][y] > 4) {
+								G.board[x][y] = 1;
+							}
+						}
+					}
+				}
 			}());
 			break;
-		default:
+		case 8:
+		 // diagional jump
+		 // don't kill me for this example of ugly code
+		 G.board.push(G.board.shift());
+		 G.board.push(G.board.shift());
+		 G.board.push(G.board.shift());
+		 G.board.push(G.board.shift());
+		 for (i = 0; i < G.board.length; i++) {
+			 G.board[i].unshift(G.board[i].pop());
+		 }
+		 for (i = 0; i < G.board.length; i++) {
+			 G.board[i].unshift(G.board[i].pop());
+		 }
+		 for (i = 0; i < G.board.length; i++) {
+			 G.board[i].unshift(G.board[i].pop());
+		 }
+		 for (i = 0; i < G.board.length; i++) {
+			 G.board[i].unshift(G.board[i].pop());
+		 }
 	}
 
 	//select next shapeshift
@@ -75,12 +106,11 @@ function shapeshift(shiftID) {
 			G.nextShift = Math.floor(Math.random()*4+1);
 		} else if (level < 300) {
 			G.nextShift = Math.floor(Math.random()*6+1);
-		} else {
+		} else if (level < 500) {
 			G.nextShift = Math.floor(Math.random()*7+1);
-			if (G.nextShift === 7) {
-				G.nextShift = Math.floor(Math.random()*7+1);
-			}
+		} else {
+			G.nextShift = Math.floor(Math.random()*87+1);
 		}
-		G.shiftDelay = Math.floor(Math.random()*3+3);
+		G.shiftDelay = 5;
 	}
 }

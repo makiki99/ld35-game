@@ -34,6 +34,7 @@ var G = {
 		"ROTATE LEFT",
 		"ROTATE RIGHT",
 		"COLORSHIFT",
+		"DIAGIONAL JUMP"
 	],
 	antiMisclick: true,
 };
