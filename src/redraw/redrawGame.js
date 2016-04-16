@@ -55,7 +55,7 @@ function redrawGame() {
 	(function() {
 		// next shift
 		textout_centre(canvas, orbitron, "Next Shift", 540, 235, 16, makecol(255,255,255));
-		textout_centre(canvas, orbitron, G.nextShift, 540, 255, 16, makecol(255,255,255));
+		textout_centre(canvas, orbitron, G.shiftNames[G.nextShift], 540, 255, 16, makecol(255,255,255));
 		textout_centre(canvas, orbitron, G.shiftDelay + " turns left", 540, 275, 16, makecol(255,255,255));
 	}());
 }

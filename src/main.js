@@ -25,6 +25,16 @@ var G = {
 		makecol(0,0,240,75),
 		makecol(240,0,240,75)
 	],
+	shiftNames : [
+		"nope",
+		"MOV UP",
+		"MOV DOWN",
+		"MOV LEFT",
+		"MOV RIGHT",
+		"ROTATE LEFT",
+		"ROTATE RIGHT",
+		"SCRAMBLE ROWS"
+	],
 	antiMisclick: true,
 };
 

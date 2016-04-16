@@ -1,6 +1,6 @@
 function updateGame() {
 	//cursor
-	if (!antiMisclick) {
+	if (!G.antiMisclick) {
 		var posX = Math.floor((mouse_x-60)/50);
 		var posY = Math.floor((mouse_y-40)/50);
 		if (posX >= 0 && posX <= 6 && posY >= 0 && posY <= 7) {
@@ -30,14 +30,14 @@ function updateGame() {
 			if (G.board[G.cursorPos[0]][G.cursorPos[1]] === 0 && G.board[G.cursorPos[0]+1][G.cursorPos[1]] === 0) {
 				G.board[G.cursorPos[0]][G.cursorPos[1]] = G.currentPiece[0];
 				G.board[G.cursorPos[0]+1][G.cursorPos[1]] = G.currentPiece[1];
-				G.progress ++;
+				G.level++;
 				clearCheck();
 				lifeCheck();
 				newPiece();
 			}
 		}
 	} else {
-		antiMisclick = false;
+		G.antiMisclick = false;
 	}
 }
 
@@ -58,10 +58,12 @@ function clearCheck() {
 		[false,false,false,false,false,false,false,false],
 		[false,false,false,false,false,false,false,false],
 	];
+	var clearLevel = 0;
 	(function() {
 		//vertical check
-		var lineLength = 1;
+		var lineLength;
 		for (var x = 0; x < G.board.length; x++) {
+			lineLength = 1;
 			for (var y = 1; y < G.board[x].length; y++) {
 				if (G.board[x][y] !== 0 && G.board[x][y] === G.board[x][y-1]) {
 					lineLength++;
@@ -69,6 +71,7 @@ function clearCheck() {
 						for (var i = 0; i < lineLength; i++) {
 							markedForClear[x][y-i] = true;
 						}
+						clearLevel++;
 					}
 				} else {
 					lineLength = 1;
@@ -78,8 +81,9 @@ function clearCheck() {
 	}());
 	(function() {
 		//horizontal check
-		var lineLength = 1;
+		var lineLength;
 		for (var y = 0; y < G.board.length; y++) {
+			lineLength = 1;
 			for (var x = 1; x < G.board[y].length; x++) {
 				if (G.board[x][y] !== 0 && G.board[x][y] === G.board[x-1][y]) {
 					lineLength++;
@@ -87,6 +91,7 @@ function clearCheck() {
 						for (var i = 0; i < lineLength; i++) {
 							markedForClear[x-i][y] = true;
 						}
+						clearLevel++;
 					}
 				} else {
 					lineLength = 1;
@@ -100,13 +105,22 @@ function clearCheck() {
 			for (var y = 0; y < markedForClear[x].length; y++) {
 				if (markedForClear[x][y]) {
 					G.board[x][y] = 0;
+					G.score += Math.floor((100+(clearLevel+25))*(1+G.level/250));
 				}
 			}
 		}
 	}());
+	G.level += clearLevel*2;
+	if (G.score >= G.nextBomb) {
+		G.bomb++;
+		G.nextBomb *= 2;
+	}
 }
 
 function lifeCheck() {
+	if (G.bombs > 0) {
+		return;
+	}
 	for (var y = 0; y < G.board.length; y++) {
 		for (var x = 0; x < G.board[x].length-1; x++) {
 			if (G.board[x][y] === 0 && G.board[x+1][y] === 0) {
