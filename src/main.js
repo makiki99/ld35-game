@@ -2,6 +2,7 @@ var G = {
 	gamestate : 0,
 	score: 0,
 	bombs: 0,
+	nextBomb: 0,
 	level: 0,
 	cursorPos : [3,4],
 	cursorIsActive : true,
@@ -24,6 +25,7 @@ var G = {
 		makecol(0,0,240,75),
 		makecol(240,0,240,75)
 	],
+	antiMisclick: true,
 };
 
 function main() {
