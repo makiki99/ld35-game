@@ -6,7 +6,6 @@ function updateMenu() {
 		G.score = 0;
 		G.bombs = 3;
 		G.nextBomb = 25000;
-		G.nextShift = Math.floor(Math.random()*4+1);
 		level = 0;
 		G.board = [
 			[0,0,0,0,0,0,0,0],
@@ -20,6 +19,7 @@ function updateMenu() {
 		];
 		newPiece();
 		newPiece();
+		shapeshift(0);
 		G.antiMisclick = true;
 	}
 }

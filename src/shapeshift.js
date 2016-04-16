@@ -26,25 +26,61 @@ function shapeshift(shiftID) {
 			break;
 		case 5:
 			// rotate left
+			G.board = [
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+			];
+			for (var x = 0; x < preshiftBoard.length; x++) {
+				for (var y = 0; y < preshiftBoard[x].length; y++) {
+					G.board[x][y] = preshiftBoard[7-y][x];
+				}
+			}
 			break;
 		case 6:
-			// rotate right
+			// rotate left
+			G.board = [
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0],
+			];
+			for (var x = 0; x < preshiftBoard.length; x++) {
+				for (var y = 0; y < preshiftBoard[x].length; y++) {
+					G.board[x][y] = preshiftBoard[y][7-x];
+				}
+			}
 			break;
 		case 7:
-			// scramble rows
+			// shift colors
+			(function() {
+
+			}());
 			break;
 		default:
 	}
+
 	//select next shapeshift
-	if (level < 250) {
-		G.nextShift = Math.floor(Math.random()*4+1);
-	} else if (level < 500) {
-		G.nextShift = Math.floor(Math.random()*6+1);
-	} else {
-		G.nextShift = Math.floor(Math.random()*7+1);
-		if (G.nextShift === 7) {
+	while (G.nextShift === shiftID) {
+		if (level < 100) {
+			G.nextShift = Math.floor(Math.random()*4+1);
+		} else if (level < 300) {
+			G.nextShift = Math.floor(Math.random()*6+1);
+		} else {
 			G.nextShift = Math.floor(Math.random()*7+1);
+			if (G.nextShift === 7) {
+				G.nextShift = Math.floor(Math.random()*7+1);
+			}
 		}
+		G.shiftDelay = Math.floor(Math.random()*3+3);
 	}
-	G.shiftDelay = Math.floor(Math.random()*3+4);
 }

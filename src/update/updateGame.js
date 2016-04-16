@@ -34,6 +34,10 @@ function updateGame() {
 				clearCheck();
 				lifeCheck();
 				newPiece();
+				G.shiftDelay--;
+				if (G.shiftDelay === 0) {
+					shapeshift(G.nextShift);
+				}
 			}
 		}
 	} else {

@@ -33,7 +33,7 @@ var G = {
 		"MOV RIGHT",
 		"ROTATE LEFT",
 		"ROTATE RIGHT",
-		"SCRAMBLE ROWS"
+		"COLORSHIFT",
 	],
 	antiMisclick: true,
 };
