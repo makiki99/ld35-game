@@ -1,47 +1,53 @@
 function updateGame() {
 	//cursor
-	if (!G.antiMisclick) {
-		var posX = Math.floor((mouse_x-60)/50);
-		var posY = Math.floor((mouse_y-40)/50);
-		if (posX >= 0 && posX <= 6 && posY >= 0 && posY <= 7) {
-			G.cursorPos = [posX,posY];
-			G.cursorIsActive = true;
+	if (G.isAlive) {
+		if (!G.antiMisclick) {
+			var posX = Math.floor((mouse_x-60)/50);
+			var posY = Math.floor((mouse_y-40)/50);
+			if (posX >= 0 && posX <= 6 && posY >= 0 && posY <= 7) {
+				G.cursorPos = [posX,posY];
+				G.cursorIsActive = true;
+			} else {
+				G.cursorIsActive = false;
+			}
+
+			if (key[KEY_SPACE]) {
+				var temp = G.currentPiece[0];
+				G.currentPiece[0] = G.currentPiece[1];
+				G.currentPiece[1] = temp;
+				key[KEY_SPACE] = false;
+			}
+			if (key[KEY_LSHIFT]) {
+				if (G.bombs > 0) {
+					G.bombs--;
+					for (var i = 0; i < G.board.length; i++) {
+						G.board[i][G.cursorPos[1]] = 0;
+					}
+				}
+				key[KEY_LSHIFT] = false;
+			}
+
+			if (mouse_pressed && G.cursorIsActive) {
+				if (G.board[G.cursorPos[0]][G.cursorPos[1]] === 0 && G.board[G.cursorPos[0]+1][G.cursorPos[1]] === 0) {
+					G.board[G.cursorPos[0]][G.cursorPos[1]] = G.currentPiece[0];
+					G.board[G.cursorPos[0]+1][G.cursorPos[1]] = G.currentPiece[1];
+					G.level++;
+					clearCheck();
+					lifeCheck();
+					newPiece();
+					G.shiftDelay--;
+					if (G.shiftDelay === 0) {
+						shapeshift(G.nextShift);
+					}
+				}
+			}
 		} else {
-			G.cursorIsActive = false;
-		}
-
-		if (key[KEY_SPACE]) {
-			var temp = G.currentPiece[0];
-			G.currentPiece[0] = G.currentPiece[1];
-			G.currentPiece[1] = temp;
-			key[KEY_SPACE] = false;
-		}
-		if (key[KEY_LSHIFT]) {
-			if (G.bombs > 0) {
-				G.bombs--;
-				for (var i = 0; i < G.board.length; i++) {
-					G.board[i][G.cursorPos[1]] = 0;
-				}
-			}
-			key[KEY_LSHIFT] = false;
-		}
-
-		if (mouse_pressed && G.cursorIsActive) {
-			if (G.board[G.cursorPos[0]][G.cursorPos[1]] === 0 && G.board[G.cursorPos[0]+1][G.cursorPos[1]] === 0) {
-				G.board[G.cursorPos[0]][G.cursorPos[1]] = G.currentPiece[0];
-				G.board[G.cursorPos[0]+1][G.cursorPos[1]] = G.currentPiece[1];
-				G.level++;
-				clearCheck();
-				lifeCheck();
-				newPiece();
-				G.shiftDelay--;
-				if (G.shiftDelay === 0) {
-					shapeshift(G.nextShift);
-				}
-			}
+			G.antiMisclick = false;
 		}
 	} else {
-		G.antiMisclick = false;
+		if (mouse_pressed) {
+			G.gamestate = 0;
+		}
 	}
 }
 
@@ -116,7 +122,7 @@ function clearCheck() {
 	}());
 	G.level += clearLevel*2;
 	if (G.score >= G.nextBomb) {
-		G.bomb++;
+		G.bombs++;
 		G.nextBomb *= 2;
 	}
 }
@@ -132,5 +138,5 @@ function lifeCheck() {
 			}
 		}
 	}
-	G.gamestate = 2;
+	G.isAlive = false;
 }

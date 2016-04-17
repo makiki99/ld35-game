@@ -1,6 +1,7 @@
 function updateMenu() {
 	if (mouse_pressed) {
 		// init game
+		G.isAlive = true;
 		G.gamestate = 1;
 		G.progress = 0;
 		G.score = 0;

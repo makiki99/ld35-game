@@ -1,23 +1,14 @@
-var Anim = {
-	clearMask: [
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-		[0,0,0,0,0,0,0,0],
-	]
-};
-
 function redrawGame() {
 	(function() {
 		// game board
-		for (var x = 0; x < G.board.length; x++) {
-			for (var y = 0; y < G.board[x].length; y++) {
-				rectfill(canvas, 40+50*x, 40+50*y, 48, 48, G.colors[G.board[x][y]]);
+		if (G.isAlive) {
+			for (var x = 0; x < G.board.length; x++) {
+				for (var y = 0; y < G.board[x].length; y++) {
+					rectfill(canvas, 40+50*x, 40+50*y, 48, 48, G.colors[G.board[x][y]]);
+				}
 			}
+		} else {
+			textout_centre(canvas, orbitron, "GAME OVER", 240, 240, 40, makecol(255,255,255));
 		}
 	}());
 

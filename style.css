@@ -23,6 +23,7 @@ canvas {
 	margin: 10px auto;
 	padding:10px;
 	border-radius:12px;
+	display:none;
 }
 
 footer {
