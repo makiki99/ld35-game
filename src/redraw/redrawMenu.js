@@ -6,5 +6,6 @@ function redrawMenu() {
 	textout_centre(canvas, orbitron, "Press shift to use bomb.", 320, 220, 24, makecol(255,255,255));
 	textout_centre(canvas, orbitron, "Bomb clears the whole row when used.", 320, 260, 24, makecol(255,255,255));
 	textout_centre(canvas, orbitron, "You can get more bombs by getting high score.", 320, 300, 24, makecol(255,255,255));
+	textout_centre(canvas, orbitron, "Every few turns, the game board shapeshifts.", 320, 340, 24, makecol(255,255,255));
 	textout_centre(canvas, orbitron, "Click on the screen to start!", 320, 450, 24, makecol(255,255,255));
 }

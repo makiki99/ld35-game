@@ -100,6 +100,9 @@ function shapeshift(shiftID) {
 		 }
 	}
 
+	clearCheck();
+	lifeCheck();
+	
 	//select next shapeshift
 	while (G.nextShift === shiftID) {
 		if (level < 100) {
